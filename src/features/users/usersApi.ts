@@ -36,7 +36,7 @@ export const usersApi = createApi({
             // Format the created date using our helper pipe
             created: formatDate((limit as any).created || ''),
             status: typeof limit.status === 'boolean'
-              ? (limit.status ? '🟢' : '🔴')
+              ? (limit.status ? 'true' : 'false')
               : limit.status,
           })),
         };

@@ -28,7 +28,7 @@ export default function UserDetailsPage() {
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" p={1}>
-      <Paper elevation={3} sx={{ p: 4, maxWidth: '600px', width: '100%' }}>
+      <Paper elevation={5} sx={{ p: 4, maxWidth: '600px', width: '100%' }}>
         <Box display="flex" flexDirection="column" alignItems="center" mb={4}>
           {avatarUrl && (
             <Avatar

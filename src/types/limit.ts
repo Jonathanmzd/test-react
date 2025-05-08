@@ -8,5 +8,6 @@ export interface Limit {
  }
 
  export interface ExtendedLimit extends Limit {
+   id: string;
    formattedLimitValue: string;
  }

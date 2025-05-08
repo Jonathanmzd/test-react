@@ -37,34 +37,39 @@ export default function UsersListPage() {
   }
 
   return (
-    <TableContainer component={Paper} sx={{ width: '100%' }}>
-      <Table sx={{ width: '100%' }}>
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{ width: '20%' }}>First Name</TableCell>
-            <TableCell sx={{ width: '20%' }}>Last Name</TableCell>
-            <TableCell sx={{ width: '15%' }}>Age</TableCell>
-            <TableCell sx={{ width: '25%' }}>Email</TableCell>
-            <TableCell sx={{ width: '20%' }}>Username</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data?.users.map((user) => (
-            <TableRow
-              key={user.id}
-              hover
-              onClick={() => navigate(`/users/${user.id}`)}
-              style={{ cursor: 'pointer' }}
-            >
-              <TableCell>{user.firstName}</TableCell>
-              <TableCell>{user.lastName}</TableCell>
-              <TableCell>{user.age}</TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>{user.username}</TableCell>
+    <Box>
+      <Typography variant="h5" gutterBottom>
+        Users List
+      </Typography>
+      <TableContainer elevation={8} component={Paper} sx={{ width: '100%' }}>
+        <Table sx={{ width: '100%' }}>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ width: '20%' }}>First Name</TableCell>
+              <TableCell sx={{ width: '20%' }}>Last Name</TableCell>
+              <TableCell sx={{ width: '15%' }}>Age</TableCell>
+              <TableCell sx={{ width: '25%' }}>Email</TableCell>
+              <TableCell sx={{ width: '20%' }}>Username</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {data?.users.map((user) => (
+              <TableRow
+                key={user.id}
+                hover
+                onClick={() => navigate(`/users/${user.id}`)}
+                style={{ cursor: 'pointer' }}
+              >
+                <TableCell>{user.firstName}</TableCell>
+                <TableCell>{user.lastName}</TableCell>
+                <TableCell>{user.age}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.username}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }
