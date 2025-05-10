@@ -9,7 +9,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  CircularProgress,
   Typography,
   TextField,
   Dialog,
@@ -76,11 +75,7 @@ export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps
       </Dialog>
 
       {/* Content */}
-      {isLoading ? (
-        <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
-          <CircularProgress />
-        </Box>
-      ) : isError || !data ? (
+      {isError || !data ? (
         <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
           <Typography color="error" variant="h6" align="center">
             Failed to load user limits.

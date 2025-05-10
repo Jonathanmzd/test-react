@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 import {
   Box,
   Typography,
-  CircularProgress,
   Paper,
   Avatar,
+  Grid,
+  Divider,
 } from '@mui/material';
 import { useGetUserQuery, useGetAvatarQuery } from '../users/usersApi';
 import UserLimitsPage from './UserLimitsPage';
@@ -16,15 +17,7 @@ export default function UserDetailsPage() {
   const { data: user, isLoading, isError, error } = useGetUserQuery(id as string);
   const { data: avatarUrl } = useGetAvatarQuery();
 
-  if (isLoading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (isError || !user) {
+  if (isLoading || isError || !user) {
     console.error(error);
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
@@ -40,56 +33,59 @@ export default function UserDetailsPage() {
   const bankCurrency = bankData?.currency || 'USD';
 
   return (
-    <Box display="flex" flexDirection="row" p={1} gap={2}>
-      {/* Details Section */}
-      <Box flex={3}>
-        <Paper elevation={5} sx={{ p: 4, height: '100%' }}>
-          <Box display="flex" flexDirection="column" alignItems="center" mb={4}>
-            {avatarUrl && (
-              <Avatar
-                src={avatarUrl}
-                alt="User Avatar"
-                sx={{ width: 120, height: 120, mb: 2 }}
-              />
-            )}
-            <Typography variant="h5">
-              {user.firstName} {user.lastName}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography variant="body1">
-              <strong>ID:</strong> {user.id}
-            </Typography>
-            <Typography variant="body1">
-              <strong>First Name:</strong> {user.firstName}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Last Name:</strong> {user.lastName}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Age:</strong> {user.age}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Email:</strong> {user.email}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Username:</strong> {user.username}
-            </Typography>
-            {bankData && (
-              <Typography variant="body1">
-                <strong>Currency:</strong>{' '}
-                {new Intl.DisplayNames(['en'], { type: 'currency' }).of(bankCurrency)}{' '}
-                {formatCurrencySymbol(bankCurrency)} ({bankCurrency})
+    <Box p={2}>
+      <Grid container spacing={2}>
+        {/* User Details Section */}
+        <Grid container item xs={12} md={4}>
+          <Paper elevation={5} sx={{ p: 3 }}>
+            <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
+              {avatarUrl && (
+                <Avatar
+                  src={avatarUrl}
+                  alt="User Avatar"
+                  sx={{ width: 120, height: 120, mb: 2 }}
+                />
+              )}
+              <Typography variant="h5" fontWeight="bold" gutterBottom>
+                {user.firstName} {user.lastName}
               </Typography>
-            )}
-          </Box>
-        </Paper>
-      </Box>
+              <Typography variant="body2" color="textSecondary">
+                {user.username}
+              </Typography>
+            </Box>
+            <Divider sx={{ mb: 2 }} />
+            <Box>
+              <Typography variant="body1" gutterBottom>
+                <strong>ID:</strong> {user.id}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                <strong>First Name:</strong> {user.firstName}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                <strong>Last Name:</strong> {user.lastName}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                <strong>Age:</strong> {user.age}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                <strong>Email:</strong> {user.email}
+              </Typography>
+              {bankData && (
+                <Typography variant="body1" gutterBottom>
+                  <strong>Currency:</strong>{' '}
+                  {new Intl.DisplayNames(['en'], { type: 'currency' }).of(bankCurrency)}{' '}
+                  {formatCurrencySymbol(bankCurrency)} ({bankCurrency})
+                </Typography>
+              )}
+            </Box>
+          </Paper>
+        </Grid>
 
-      {/* Limits Table Section */}
-      <Box flex={7}>
-        <UserLimitsPage currency={bankCurrency} />
-      </Box>
+        {/* User Limits Section */}
+        <Grid item xs={12} md={8}>
+          <UserLimitsPage currency={bankCurrency} />
+        </Grid>
+      </Grid>
     </Box>
   );
 }
