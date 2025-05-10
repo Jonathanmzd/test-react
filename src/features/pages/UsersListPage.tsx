@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
@@ -13,12 +13,14 @@ export default function UsersListPage() {
   const { data, isError } = useGetUsersQuery({ limit, skip });
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+  // Update total users in Redux when data is fetched
+  useEffect(() => {
     if (data?.total) {
       dispatch(setTotal(data.total));
     }
   }, [data, dispatch]);
 
+  // Define columns for the DataGrid
   const columns: GridColDef[] = [
     { field: 'firstName', headerName: 'First Name', flex: 1 },
     { field: 'lastName', headerName: 'Last Name', flex: 1 },
@@ -27,6 +29,7 @@ export default function UsersListPage() {
     { field: 'username', headerName: 'Username', flex: 1 },
   ];
 
+  // Handle error or empty data
   if (isError || !data) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">

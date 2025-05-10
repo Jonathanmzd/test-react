@@ -50,8 +50,7 @@ export const useAddLimitForm = (): UseAddLimitForm => {
       created: formatDate(new Date()),
       formattedLimitValue: formatCurrency(
         typeof limitValue === 'number' ? limitValue : 0,
-        'en-US',
-        'USD'
+        'en-US'
       ),
     };
 

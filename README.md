@@ -172,6 +172,7 @@ test-react/
 
 This scalable, modular user management system is built using modern React and TypeScript practices. It leverages Redux Toolkit Query for efficient API data fetching and caching, Material UI for a responsive design, and React Router for seamless navigation. The project also uses custom utility functions for formatting currency and dates.
 
+[View Project Velcel](https://test-react-ja-git-main-jonathanmzds-projects.vercel.app)
 ---
 
-![Cute Puppy](https://placedog.net/500)
+<img src="https://placedog.net/500" width="300px" />

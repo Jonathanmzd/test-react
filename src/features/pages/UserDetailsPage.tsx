@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Box,
@@ -14,7 +13,7 @@ import { formatCurrencySymbol } from '../../utils/formatCurrencySymbol';
 
 export default function UserDetailsPage() {
   const { id } = useParams();
-  const { data: user, isLoading, isError, error } = useGetUserQuery(id as string);
+  const { data: user, isLoading, isError } = useGetUserQuery(id as string);
   const { data: avatarUrl } = useGetAvatarQuery();
 
   if (isLoading || isError || !user) {
@@ -35,7 +34,7 @@ export default function UserDetailsPage() {
     <Box p={2}>
       <Grid container spacing={2}>
         {/* User Details Section */}
-        <Grid container item xs={12} md={4}>
+        <Grid size={4}>
           <Paper elevation={5} sx={{ p: 3 }}>
             <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
               {avatarUrl && (
@@ -81,7 +80,7 @@ export default function UserDetailsPage() {
         </Grid>
 
         {/* User Limits Section */}
-        <Grid item xs={12} md={8}>
+        <Grid size={8}>
           <UserLimitsPage currency={bankCurrency} />
         </Grid>
       </Grid>
