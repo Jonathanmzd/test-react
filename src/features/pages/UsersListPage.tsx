@@ -10,7 +10,7 @@ import { useGetUsersQuery } from '../users/usersApi';
 export default function UsersListPage() {
   const dispatch = useDispatch();
   const { limit, skip, total } = useSelector((state: RootState) => state.pagination);
-  const { data, isLoading, isError, error } = useGetUsersQuery({ limit, skip });
+  const { data, isError } = useGetUsersQuery({ limit, skip });
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -28,7 +28,6 @@ export default function UsersListPage() {
   ];
 
   if (isError || !data) {
-    console.error(error);
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
         <Typography color="error" variant="h6" align="center">
@@ -55,7 +54,6 @@ export default function UsersListPage() {
             dispatch(setLimit(model.pageSize));
           }}
           getRowId={(row) => row.id}
-          loading={isLoading}
           onRowClick={(params) => navigate(`/users/${params.id}`)}
           sx={{
             '& .MuiDataGrid-iconSeparator': {

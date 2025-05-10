@@ -19,9 +19,10 @@ import { useGetLimitsQuery } from '../users/usersApi';
 import AddLimitSection from './AddLimitSection';
 import { formatCurrency } from '../../utils/formatCurrency';
 import type { UserLimitsPageProps } from '../../types/limit';
+import { GridCloseIcon } from '@mui/x-data-grid';
 
 export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps) {
-  const { data, isLoading, isError } = useGetLimitsQuery();
+  const { data, isError } = useGetLimitsQuery();
   const [searchTerm, setSearchTerm] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -65,7 +66,7 @@ export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps
       {/* Modal with Form */}
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color="primary" startIcon={<GridCloseIcon />}>
             Close
           </Button>
         </DialogActions>
@@ -111,16 +112,16 @@ export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps
                     <TableCell>
                       {limit.limitValueType === 'amount'
                         ? formatCurrency(
-                            typeof limit.limitValue === 'number' ? limit.limitValue : 0,
-                            currency
-                          )
+                          typeof limit.limitValue === 'number' ? limit.limitValue : 0,
+                          currency
+                        )
                         : new Intl.NumberFormat('en-US', {
-                            style: 'percent',
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 0,
-                          }).format(
-                            typeof limit.limitValue === 'number' ? limit.limitValue / 100 : 0
-                          )}
+                          style: 'percent',
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        }).format(
+                          typeof limit.limitValue === 'number' ? limit.limitValue / 100 : 0
+                        )}
                     </TableCell>
                     <TableCell>{limit.limitValueType}</TableCell>
                     <TableCell>{limit.status === 'true' ? '🟢' : '🔴'}</TableCell>

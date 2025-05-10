@@ -18,7 +18,6 @@ export default function UserDetailsPage() {
   const { data: avatarUrl } = useGetAvatarQuery();
 
   if (isLoading || isError || !user) {
-    console.error(error);
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
         <Typography color="error" variant="h6" align="center">
