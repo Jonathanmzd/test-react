@@ -63,7 +63,7 @@ export default function UsersListPage() {
                 component={Paper}
                 sx={{
                     width: '100%',
-                    maxHeight: '500px',
+                    maxHeight: '400px',
                     overflowY: 'auto'
                 }}
                 elevation={8}

@@ -13,9 +13,9 @@ export default function Navbar() {
             <Button color="inherit" component={RouterLink} to="/">
               Users
             </Button>
-            <Button color="inherit" component={RouterLink} to="/limits">
+            {/* <Button color="inherit" component={RouterLink} to="/limits">
               Limits
-            </Button>
+            </Button> */}
           </div>
         </Toolbar>
       </AppBar>

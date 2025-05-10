@@ -18,11 +18,13 @@ import {
 } from '@mui/material';
 import { useGetLimitsQuery } from '../users/usersApi';
 import AddLimitSection from './AddLimitSection';
+import { formatCurrency } from '../../utils/formatCurrency';
+import type { UserLimitsPageProps } from '../../types/limit';
 
-export default function UserLimitsPage() {
-  const { data, isLoading, isError, error } = useGetLimitsQuery();
-  const [open, setOpen] = useState(false);
+export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps) {
+  const { data, isLoading, isError } = useGetLimitsQuery();
   const [searchTerm, setSearchTerm] = useState('');
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -36,7 +38,7 @@ export default function UserLimitsPage() {
       limit.limitValueType.toLowerCase().includes(term) ||
       limit.created.toLowerCase().includes(term) ||
       limit.status.toLowerCase().includes(term) ||
-      limit.formattedLimitValue.toLowerCase().includes(term)
+      String(limit.limitValue).toLowerCase().includes(term)
     );
   }, [data, searchTerm]);
 
@@ -73,7 +75,7 @@ export default function UserLimitsPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Conditional rendering for content */}
+      {/* Content */}
       {isLoading ? (
         <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
           <CircularProgress />
@@ -90,8 +92,8 @@ export default function UserLimitsPage() {
           elevation={8}
           sx={{
             width: '100%',
-            maxHeight: '400px', // Fixed height for scrolling
-            overflowY: 'auto'
+            maxHeight: '400px',
+            overflowY: 'auto',
           }}
         >
           <Table stickyHeader sx={{ width: '100%' }}>
@@ -111,7 +113,20 @@ export default function UserLimitsPage() {
                   <TableRow key={index}>
                     <TableCell>{limit.limitPeriod}</TableCell>
                     <TableCell>{limit.limitType}</TableCell>
-                    <TableCell>{limit.formattedLimitValue}</TableCell>
+                    <TableCell>
+                      {limit.limitValueType === 'amount'
+                        ? formatCurrency(
+                            typeof limit.limitValue === 'number' ? limit.limitValue : 0,
+                            currency
+                          )
+                        : new Intl.NumberFormat('en-US', {
+                            style: 'percent',
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                          }).format(
+                            typeof limit.limitValue === 'number' ? limit.limitValue / 100 : 0
+                          )}
+                    </TableCell>
                     <TableCell>{limit.limitValueType}</TableCell>
                     <TableCell>{limit.status === 'true' ? '🟢' : '🔴'}</TableCell>
                     <TableCell>{limit.created}</TableCell>

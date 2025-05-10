@@ -31,13 +31,12 @@ export const usersApi = createApi({
         return {
           limits: limitsArray.map((limit) => ({
             ...limit,
-            // Format the currency date using our helper pipe
-            formattedLimitValue: formatCurrency(limit.limitValue, 'en-US', 'USD'),
-            // Format the created date using our helper pipe
             created: formatDate((limit as any).created || ''),
             status: typeof limit.status === 'boolean'
               ? (limit.status ? 'true' : 'false')
               : limit.status,
+            id: (limit as any).id || '',
+            formattedLimitValue: (limit as any).limitValue || 0,
           })),
         };
       },
