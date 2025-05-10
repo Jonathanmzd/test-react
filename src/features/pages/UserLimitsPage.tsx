@@ -29,6 +29,7 @@ export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // Filter limits based on the search term
   const filteredLimits = useMemo(() => {
     if (!data) return [];
     const term = searchTerm.toLowerCase();
@@ -44,7 +45,7 @@ export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps
 
   return (
     <>
-      {/* Header */}
+      {/* Header Section */}
       <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
         <Typography variant="h5">User Limits</Typography>
         <Button variant="contained" color="primary" onClick={handleOpen}>
@@ -52,7 +53,7 @@ export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps
         </Button>
       </Box>
 
-      {/* Search Field */}
+      {/* Search Field Section */}
       <Box sx={{ mb: 2 }}>
         <TextField
           label="Search Limits"
@@ -63,7 +64,7 @@ export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps
         />
       </Box>
 
-      {/* Modal with Form */}
+      {/* Modal for Adding a New Limit */}
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         <DialogActions>
           <Button onClick={handleClose} color="primary" startIcon={<GridCloseIcon />}>
@@ -75,14 +76,16 @@ export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps
         </DialogContent>
       </Dialog>
 
-      {/* Content */}
+      {/* Table Section */}
       {isError || !data ? (
+        // Error or Loading State
         <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
           <Typography color="error" variant="h6" align="center">
             Failed to load user limits.
           </Typography>
         </Box>
       ) : (
+        // Display Filtered Limits in a Table
         <TableContainer
           component={Paper}
           elevation={8}
@@ -105,6 +108,7 @@ export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps
             </TableHead>
             <TableBody>
               {filteredLimits.length > 0 ? (
+                // Render each limit row
                 filteredLimits.map((limit, index) => (
                   <TableRow key={index}>
                     <TableCell>{limit.limitPeriod}</TableCell>
@@ -129,6 +133,7 @@ export default function UserLimitsPage({ currency = 'USD' }: UserLimitsPageProps
                   </TableRow>
                 ))
               ) : (
+                // No limits found
                 <TableRow>
                   <TableCell colSpan={6} align="center">
                     No limits found.

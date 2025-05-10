@@ -23,8 +23,11 @@ type UseAddLimitForm = {
   handleSubmit: (e: React.FormEvent) => void;
 };
 
+// Custom hook to manage the Add Limit form
 export const useAddLimitForm = (): UseAddLimitForm => {
   const dispatch = useDispatch<AppDispatch>();
+
+  // State variables for form fields
   const [limitPeriod, setLimitPeriod] = useState('');
   const [limitType, setLimitType] = useState('');
   const [limitValue, setLimitValue] = useState<number | ''>('');
@@ -32,35 +35,40 @@ export const useAddLimitForm = (): UseAddLimitForm => {
   const [status, setStatus] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
+  // Function to handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate form fields
     const newErrors = validateFields(limitPeriod, limitType, limitValue, limitValueType);
     if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+      setErrors(newErrors); // Set validation errors
       return;
     }
 
+    // Create a new limit object
     const newLimit: ExtendedLimit = {
-      id: generateUniqueId(),
+      id: generateUniqueId(), // Generate a unique ID for the limit
       limitPeriod,
       limitType,
-      limitValue: typeof limitValue === 'number' ? limitValue : 0,
+      limitValue: typeof limitValue === 'number' ? limitValue : 0, // Default value to 0 if invalid
       limitValueType,
-      status: status ? 'true' : 'false',
-      created: formatDate(new Date()),
+      status: status ? 'true' : 'false', // Convert boolean status to string
+      created: formatDate(new Date()), // Format the current date
       formattedLimitValue: formatCurrency(
         typeof limitValue === 'number' ? limitValue : 0,
         'en-US'
-      ),
+      ), // Format the limit value as currency
     };
 
+    // Update the limits data in the Redux store
     dispatch(
       usersApi.util.updateQueryData('getLimits', undefined, (draft) => {
-        draft.limits.push(newLimit);
+        draft.limits.push(newLimit); // Add the new limit to the existing list
       })
     );
 
-    // Reset form fields
+    // Reset form fields after submission
     setLimitPeriod('');
     setLimitType('');
     setLimitValue('');

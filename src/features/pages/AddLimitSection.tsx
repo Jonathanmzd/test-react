@@ -17,6 +17,7 @@ import {
 import { useAddLimitForm } from '../../hooks/useAddLimitForm';
 
 const AddLimitSection: React.FC = () => {
+  // Destructure state and handlers from the custom hook
   const {
     limitPeriod,
     setLimitPeriod,
@@ -34,10 +35,14 @@ const AddLimitSection: React.FC = () => {
 
   return (
     <Paper sx={{ p: 2, boxShadow: 'none' }}>
+      {/* Section Title */}
       <Typography variant="h6" gutterBottom>
         Add New Limit
       </Typography>
+
+      {/* Form for adding a new limit */}
       <form onSubmit={handleSubmit}>
+        {/* Limit Period Dropdown */}
         <FormControl fullWidth sx={{ my: 1 }}>
           <InputLabel id="limitPeriod-label">Limit Period</InputLabel>
           <Select
@@ -51,12 +56,15 @@ const AddLimitSection: React.FC = () => {
             <MenuItem value="weekly">Weekly</MenuItem>
             <MenuItem value="monthly">Monthly</MenuItem>
           </Select>
+          {/* Error message for Limit Period */}
           {errors.limitPeriod && (
             <Typography color="error" variant="caption">
               {errors.limitPeriod}
             </Typography>
           )}
         </FormControl>
+
+        {/* Limit Type Dropdown */}
         <FormControl fullWidth sx={{ my: 1 }}>
           <InputLabel id="limitType-label">Limit Type</InputLabel>
           <Select
@@ -69,12 +77,15 @@ const AddLimitSection: React.FC = () => {
             <MenuItem value="bet">Bet</MenuItem>
             <MenuItem value="deposit">Deposit</MenuItem>
           </Select>
+          {/* Error message for Limit Type */}
           {errors.limitType && (
             <Typography color="error" variant="caption">
               {errors.limitType}
             </Typography>
           )}
         </FormControl>
+
+        {/* Limit Value Input */}
         <TextField
           fullWidth
           sx={{ my: 1 }}
@@ -85,6 +96,8 @@ const AddLimitSection: React.FC = () => {
           error={!!errors.limitValue}
           helperText={errors.limitValue}
         />
+
+        {/* Limit Value Type Radio Buttons */}
         <FormControl component="fieldset" sx={{ my: 1 }}>
           <RadioGroup
             row
@@ -94,18 +107,23 @@ const AddLimitSection: React.FC = () => {
             <FormControlLabel value="percent" control={<Radio />} label="Percent" />
             <FormControlLabel value="amount" control={<Radio />} label="Amount" />
           </RadioGroup>
+          {/* Error message for Limit Value Type */}
           {errors.limitValueType && (
             <Typography color="error" variant="caption">
               {errors.limitValueType}
             </Typography>
           )}
         </FormControl>
+
+        {/* Status Switch */}
         <Box sx={{ my: 1 }}>
           <FormControlLabel
             control={<Switch checked={status} onChange={(e) => setStatus(e.target.checked)} />}
             label="Status (Active)"
           />
         </Box>
+
+        {/* Submit Button */}
         <Box sx={{ mt: 2 }}>
           <Button type="submit" variant="contained" color="primary">
             Save

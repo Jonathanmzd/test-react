@@ -13,9 +13,12 @@ import { formatCurrencySymbol } from '../../utils/formatCurrencySymbol';
 
 export default function UserDetailsPage() {
   const { id } = useParams();
+
+  // Fetch user data and avatar using custom hooks
   const { data: user, isLoading, isError } = useGetUserQuery(id as string);
   const { data: avatarUrl } = useGetAvatarQuery();
 
+  // Display a loading or error message if data is not available
   if (isLoading || isError || !user) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
@@ -26,6 +29,7 @@ export default function UserDetailsPage() {
     );
   }
 
+  // Extract bank data and currency information from the user object
   const bankData = user.bank;
   const bankCurrency = bankData?.currency || 'USD';
 
@@ -36,13 +40,23 @@ export default function UserDetailsPage() {
         <Grid item xs={12} md={4}>
           <Paper elevation={5} sx={{ p: 3 }}>
             <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
+              {/* Display user avatar */}
               {avatarUrl && (
                 <Avatar
                   src={avatarUrl}
                   alt="User Avatar"
-                  sx={{ width: 120, height: 120, mb: 2 }}
+                  sx={{
+                    width: 120,
+                    height: 120,
+                    mb: 2,
+                    transition: 'transform 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'scale(1.1)',
+                    },
+                  }}
                 />
               )}
+              {/* Display user name and username */}
               <Typography variant="h5" fontWeight="bold" gutterBottom>
                 {user.firstName} {user.lastName}
               </Typography>
@@ -52,9 +66,7 @@ export default function UserDetailsPage() {
             </Box>
             <Divider sx={{ mb: 2 }} />
             <Box>
-              <Typography variant="body1" gutterBottom>
-                <strong>ID:</strong> {user.id}
-              </Typography>
+              {/* Display user details */}
               <Typography variant="body1" gutterBottom>
                 <strong>First Name:</strong> {user.firstName}
               </Typography>

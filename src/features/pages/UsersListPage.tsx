@@ -42,22 +42,26 @@ export default function UsersListPage() {
 
   return (
     <Box>
+      {/* Page Title */}
       <Typography variant="h5" gutterBottom>
         Users List
       </Typography>
+
+      {/* DataGrid Section */}
       <Box sx={{ height: { xs: 400, sm: 500 }, width: '100%' }}>
         <DataGrid
-          rows={data?.users || []}
-          columns={columns}
+          rows={data?.users || []} // Populate rows with user data
+          columns={columns} // Define columns for the table
           pagination
-          paginationMode="server"
-          rowCount={total}
+          paginationMode="server" // Enable server-side pagination
+          rowCount={total} // Total number of rows
           onPaginationModelChange={(model) => {
+            // Update pagination state in Redux
             dispatch(setSkip(model.page * model.pageSize));
             dispatch(setLimit(model.pageSize));
           }}
-          getRowId={(row) => row.id}
-          onRowClick={(params) => navigate(`/users/${params.id}`)}
+          getRowId={(row) => row.id} // Define unique row ID
+          onRowClick={(params) => navigate(`/users/${params.id}`)} // Navigate to user details on row click
           sx={{
             '& .MuiDataGrid-iconSeparator': {
               display: 'inline',
