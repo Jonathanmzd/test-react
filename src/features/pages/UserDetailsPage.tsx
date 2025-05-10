@@ -26,7 +26,6 @@ export default function UserDetailsPage() {
     );
   }
 
-  // Extract bank data and the currency from bank information.
   const bankData = user.bank;
   const bankCurrency = bankData?.currency || 'USD';
 
@@ -34,7 +33,7 @@ export default function UserDetailsPage() {
     <Box p={2}>
       <Grid container spacing={2}>
         {/* User Details Section */}
-        <Grid size={4}>
+        <Grid item xs={12} md={4}>
           <Paper elevation={5} sx={{ p: 3 }}>
             <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
               {avatarUrl && (
@@ -80,7 +79,7 @@ export default function UserDetailsPage() {
         </Grid>
 
         {/* User Limits Section */}
-        <Grid size={8}>
+        <Grid item xs={12} md={8}>
           <UserLimitsPage currency={bankCurrency} />
         </Grid>
       </Grid>

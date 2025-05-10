@@ -45,7 +45,7 @@ export default function UsersListPage() {
       <Typography variant="h5" gutterBottom>
         Users List
       </Typography>
-      <Box sx={{ height: 500, width: '100%' }}>
+      <Box sx={{ height: { xs: 400, sm: 500 }, width: '100%' }}>
         <DataGrid
           rows={data?.users || []}
           columns={columns}

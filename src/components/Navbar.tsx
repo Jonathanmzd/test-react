@@ -1,4 +1,5 @@
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import { Link as RouterLink } from 'react-router-dom';
 
 export default function Navbar() {
@@ -10,12 +11,16 @@ export default function Navbar() {
             User Management
           </Typography>
           <div>
-            <Button color="inherit" component={RouterLink} to="/">
+            <Button color="inherit" component={RouterLink} to="/" sx={{ display: { xs: 'none', sm: 'inline-flex' } }}>
               Users
             </Button>
-            {/* <Button color="inherit" component={RouterLink} to="/limits">
-              Limits
-            </Button> */}
+            <IconButton
+              color="inherit"
+              sx={{ display: { xs: 'inline-flex', sm: 'none' } }}
+              aria-label="menu"
+            >
+              <MenuIcon />
+            </IconButton>
           </div>
         </Toolbar>
       </AppBar>

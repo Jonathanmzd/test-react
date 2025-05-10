@@ -17,8 +17,8 @@ export default function AppRouter() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<UsersListPage />} />
             <Route path="/users/:id" element={<UserDetailsPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
-          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
