@@ -37,7 +37,7 @@ export default function UserDetailsPage() {
     <Box p={2}>
       <Grid container spacing={2}>
         {/* User Details Section */}
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Paper elevation={5} sx={{ p: 3 }}>
             <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
               {/* Display user avatar */}
@@ -91,7 +91,7 @@ export default function UserDetailsPage() {
         </Grid>
 
         {/* User Limits Section */}
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <UserLimitsPage currency={bankCurrency} />
         </Grid>
       </Grid>
