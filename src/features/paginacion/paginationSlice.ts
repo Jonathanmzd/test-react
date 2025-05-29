@@ -1,26 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-// Slice for managing pagination state
+interface PaginationState {
+  limit: number;
+  skip: number;
+  total: number;
+}
+
+const initialState: PaginationState = {
+  limit: 30,
+  skip: 0,
+  total: 0,
+};
+
+/**
+ * Redux slice for managing pagination state across the application.
+ * Handles page size (limit), current page offset (skip), and total record count.
+ */
 const paginationSlice = createSlice({
   name: 'pagination',
-  initialState: {
-    limit: 30, // Default page size
-    skip: 0,   // Default starting point for pagination
-    total: 0,  // Total number of records
-  },
+  initialState,
   reducers: {
-    // Action to update the page size (limit)
-    setLimit(state, action: PayloadAction<number>) {
-      state.limit = action.payload;
+    setLimit: (state, action: PayloadAction<number>) => {
+      if (action.payload > 0) {
+        state.limit = action.payload;
+      }
     },
-    // Action to update the starting point (skip)
-    setSkip(state, action: PayloadAction<number>) {
-      state.skip = action.payload;
+    setSkip: (state, action: PayloadAction<number>) => {
+      if (action.payload >= 0) {
+        state.skip = action.payload;
+      }
     },
-    // Action to update the total number of records
-    setTotal(state, action: PayloadAction<number>) {
-      state.total = action.payload;
+    setTotal: (state, action: PayloadAction<number>) => {
+      if (action.payload >= 0) {
+        state.total = action.payload;
+      }
     },
   },
 });

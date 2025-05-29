@@ -5,10 +5,15 @@ export interface User {
   age: number;
   email: string;
   username: string;
-  bank?: any;
+  bank?: {
+    currency: string;
+    [key: string]: unknown;
+  };
 }
 
 export interface UsersResponse {
   users: User[];
   total: number;
+  skip: number;
+  limit: number;
 }
