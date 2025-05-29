@@ -1,18 +1,22 @@
+export type LimitPeriod = 'daily' | 'weekly' | 'monthly';
+export type LimitType = 'bet' | 'deposit';
+export type LimitValueType = 'percent' | 'amount';
+
 export interface Limit {
-  limitPeriod: string;
-  limitType: string;
+  id: string;
+  limitPeriod: LimitPeriod;
+  limitType: LimitType;
   limitValue: number;
-  limitValueType: string;
-  status: string;
+  limitValueType: LimitValueType;
+  status: boolean;
   created: string;
 }
 
 export interface ExtendedLimit extends Limit {
-  id: string;
   formattedLimitValue: string;
 }
 
 // Interfaz para las props de UserLimitsPage
 export interface UserLimitsPageProps {
-  currency?: string;
+  currency: string;
 }
