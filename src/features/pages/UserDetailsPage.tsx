@@ -30,8 +30,15 @@ export default function UserDetailsPage() {
 
   return (
     <Box sx={{ p: 2 }}>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-        <Box sx={{ flex: { xs: '1 1 100%', md: '0 0 33.333%' } }}>
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: { xs: 'column', md: 'row' },
+        gap: 3 
+      }}>
+        <Box sx={{ 
+          flex: { xs: '1 1 100%', md: '0 0 33.333%' },
+          maxWidth: { xs: '100%', md: '33.333%' }
+        }}>
           <Paper sx={{ p: 3 }}>
             <Typography variant="h5" gutterBottom>
               User Details
@@ -58,7 +65,10 @@ export default function UserDetailsPage() {
           </Paper>
         </Box>
 
-        <Box sx={{ flex: { xs: '1 1 100%', md: '0 0 66.666%' } }}>
+        <Box sx={{ 
+          flex: { xs: '1 1 100%', md: '0 0 66.666%' },
+          maxWidth: { xs: '100%', md: '66.666%' }
+        }}>
           <UserLimitsPage currency={bankCurrency} />
         </Box>
       </Box>
